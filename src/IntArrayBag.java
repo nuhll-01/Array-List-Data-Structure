@@ -47,18 +47,16 @@ public class IntArrayBag implements Cloneable { // Implement 'Cloneable' to impl
     }
 
     // This method returns the largest value in an array
-    public static int maxOfArray(int[] array) {
-        int answer;
-        // Set the answer to the largest value in the array
-        answer = array[0]; // Set answer to the first element of the array.
+    public int maxOfArray(int[] array) {
+        int maxValue = array[0];
         for (int i = 0; i < array.length; i++) {
-            if (array[i] > answer) {
-                answer = array[i];
+            if (array[i] > maxValue) {
+                maxValue = array[i];
             }
         }
         // Validate the computation using Assertion Statements
-        assert contains(array, answer) : "maxOfArray answer is not contained within the array";
-        return answer;
+        assert contains(array, maxValue) : "maxOfArray answer is not contained within the array";
+        return maxValue;
     }
 
     // This method returns true if the array contains the specified value
@@ -76,5 +74,15 @@ public class IntArrayBag implements Cloneable { // Implement 'Cloneable' to impl
         for (int i = 0; i < a.length; i++) {
             a[i] = value;
         }
+    }
+
+    public void print() {
+        for (int i = 0; i < data.length; i++) {
+            System.out.println(data[i]);
+        }
+    }
+
+    public int getCapacity() {
+        return data.length;
     }
 }
