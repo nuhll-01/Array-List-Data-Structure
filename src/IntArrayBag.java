@@ -18,11 +18,19 @@ public class IntArrayBag implements Cloneable { // Implement 'Cloneable' to impl
     }
 
     public void add(int element) {
-        if (manyItems == data.length) {
-            // Double the capacity and add 1; This works even if manyItems is 0
+        // If the array is full, then resize it.
+        if (data.length == manyItems) {
+            int[] newItems = new int[(manyItems * 2) + 1];
+            // Copy all existing items of the old array into the new array.
+            for (int i = 0; i < manyItems; i++) {
+                newItems[i] = data[i];
+            }
             // TODO: Future Method Insertion - ensureCapacity(...);
+            // Set "data" to this new array.
+            data = newItems;
         }
-        data[manyItems] = element; // data[manyItems] represents the next available location in the array
+        // Add the new item at the end of the array.
+        data[manyItems] = element;
         manyItems++;
     }
 
