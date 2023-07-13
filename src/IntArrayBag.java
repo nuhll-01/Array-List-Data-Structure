@@ -43,10 +43,11 @@ public class IntArrayBag implements Cloneable { // Implement 'Cloneable' to impl
         if (data.length == manyItems) {
             int[] newItems = new int[(manyItems * 2) + 1];
             // Copy all existing items of the old array into the new array.
+            ensureCapacity(manyItems * 2 + 1);
             for (int i = 0; i < manyItems; i++) {
                 newItems[i] = data[i];
             }
-            // TODO: Future Method Insertion - ensureCapacity(...);
+            // TODO: Future Method Insertion - ensureCapacity(...); Status - Complete
             // Set "data" to this new array.
             data = newItems;
         }
@@ -60,7 +61,8 @@ public class IntArrayBag implements Cloneable { // Implement 'Cloneable' to impl
         if (element == null) {
             throw new NullPointerException("There are no elements in the array");
         }
-        // TODO: ensureCapacity(<Argument>);
+        // TODO: ensureCapacity(<Argument>); Status - Complete
+        ensureCapacity(manyItems + element.manyItems); // Ensure that the array has enough space to hold all the elements
         System.arraycopy(element.data, 0, data, manyItems, element.manyItems);
         manyItems += element.manyItems;
     }
@@ -68,7 +70,8 @@ public class IntArrayBag implements Cloneable { // Implement 'Cloneable' to impl
     // This method will allow us to add multiple elements consecutively
     public void addMany(int... elements) {
         if (manyItems + elements.length > data.length) {
-            // TODO: ensureCapacity(<Argument>)
+            // TODO: ensureCapacity(<Argument>) Status - Complete
+            ensureCapacity((manyItems + elements.length) * 2 + 1); // Ensure that the array has enough space to hold all the elements
         }
         System.arraycopy(elements, 0, data, manyItems, elements.length);
         manyItems += elements.length;
@@ -111,6 +114,16 @@ public class IntArrayBag implements Cloneable { // Implement 'Cloneable' to impl
         }
         answer.data = data.clone(); // This line creates a new array for the clone's data instance variable to refer to
         return answer;
+    }
+
+    public void ensureCapacity(int minimumCapacity) {
+        int[] biggerArray;
+
+        if (data.length < minimumCapacity) {
+            biggerArray = new int[minimumCapacity];
+            System.arraycopy(data, 0, biggerArray, 0, manyItems);
+            data = biggerArray;
+        }
     }
 
     public boolean search(int target) { // This method will search for a specified value in the array
